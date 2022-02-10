@@ -1,0 +1,16 @@
+name: PeptideEncoderLSTMEmbeddingModel
+
+# usually automatically set, so this just needs to be set in some special case
+#device_name: cuda
+
+# network and inference details
+network_dir: /prj/peptide-encoder-model/models/checkpoint_000020
+batch_size: 64
+
+# the max length for the peptides
+# all sequences will be padded or truncated (from the right) to this length
+max_sequence_length: 27
+
+# in tests, these paths will be overwritten with correct paths
+test_set: /prj/peptide-encoder/data/raw/sample-peptides.test.csv
+aa_encoding_map: /prj/peptide-encoder/data/intermediate/oh-aa-encoding-map.jpkl

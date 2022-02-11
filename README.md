@@ -33,6 +33,40 @@ embed-peptides /prj/peptide-encoder-model/conf/base/config.yaml /prj/peptide-enc
 
 The `--help` flag can be used to see a description of all arguments to the script.
 
+### Docker
+
+This project can be run using Docker.
+
+#### Bulding the image
+
+The image can be build using the following command. The command should be executed from the root of the project to
+ensure the proper build context for Docker.
+
+The base image in the Dockerfile in the repository is [nvcr.io/nvidia/pytorch:21.12-py3](https://catalog.ngc.nvidia.com/orgs/nvidia/containers/pytorch).
+This can likely be adjusted without significant problems.
+
+```
+docker build -t pepenc-model:0.1.1 -f docker/Dockerfile .
+```
+
+## Starting a container
+
+After building the image, a container can be run using a command similar to the following.
+
+```
+ docker run --rm \
+    --mount type=bind,source=/prj,target=/prj \
+    --gpus all --ipc=host --shm-size=1g --ulimit memlock=-1 --ulimit stack=67108864 \
+    pepenc-model:0.1.1 \
+    embed-peptides \
+    /prj/peptide-encoder-model/conf/base/config.yaml \
+    /prj/peptide-encoder-model/data/raw/sample-peptides.test.csv \
+    /prj/peptide-encoder-model/data/processed/embeddings.parquet \
+    --logging-level INFO
+```
+
+If built as expected, the container should take advantage of one GPU available on the node.
+
 ### Documentation
 
 Unfortunately, there is no sphinx, etc., documentation at this time. The file `conf/base/config.yaml` shows examples of

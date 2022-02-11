@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Updated
 - Moved test data inside package so that it is included in pypi installation
+- Pinned version dependencies in `requirements.txt`
 
 ## [0.1.0] - 2022.02.10
 

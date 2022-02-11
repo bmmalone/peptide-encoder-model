@@ -16,7 +16,21 @@ console_scripts = [
     'embed-peptides=pepenc_model.models.embed_peptides:main',
 ]
 
-install_requires = _safe_read_lines("./requirements.txt")
+install_requires = [    
+    "dm-tree",
+    "gym",
+    "joblib",
+    "lifesci",
+    "numpy",
+    "opencv-python",
+    "pandas",
+    "peptide-encoder",
+    "pyllars",
+    "pyyaml",
+    "ray[tune]",
+    "torch",
+    "tqdm",
+]
 
 tests_require = [
     'pytest',

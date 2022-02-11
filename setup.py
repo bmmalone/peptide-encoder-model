@@ -103,7 +103,7 @@ def description():
 
 setup(
     name='peptide_encoder_model',
-    version='0.1.0',
+    version='0.1.1',
     description=description(),
     long_description=readme(),
     keywords="peptide encoding blossum trained model",

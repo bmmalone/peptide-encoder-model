@@ -4,6 +4,9 @@
 # test suite coverage
 coverage
 
+# files produced by tests
+data/processed
+
 # large files needed for testing
 test_data
 

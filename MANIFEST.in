@@ -1,0 +1,5 @@
+include pepenc_model/data/conf/base/config.yaml
+include pepenc_model/data/raw/sample-peptides.test.csv
+include pepenc_model/data/intermediate/oh-aa-encoding-map.jpkl
+include pepenc_model/data/models/ray_checkpoint/checkpoint.pt
+include pepenc_model/data/models/ray_checkpoint/params.json

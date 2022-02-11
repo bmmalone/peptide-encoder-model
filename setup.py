@@ -16,7 +16,21 @@ console_scripts = [
     'embed-peptides=pepenc_model.models.embed_peptides:main',
 ]
 
-install_requires = _safe_read_lines("./requirements.txt")
+install_requires = [    
+    "dm-tree",
+    "gym",
+    "joblib",
+    "lifesci",
+    "numpy",
+    "opencv-python",
+    "pandas",
+    "peptide-encoder",
+    "pyllars",
+    "pyyaml",
+    "ray[tune]",
+    "torch",
+    "tqdm",
+]
 
 tests_require = [
     'pytest',
@@ -89,7 +103,7 @@ def description():
 
 setup(
     name='peptide_encoder_model',
-    version='0.1.0',
+    version='0.1.1',
     description=description(),
     long_description=readme(),
     keywords="peptide encoding blossum trained model",

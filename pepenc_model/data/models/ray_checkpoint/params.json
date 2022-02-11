@@ -1,0 +1,19 @@
+{
+    "name": "SampleConfigModel",
+    "embedding_dim": 16,
+    "hidden_dim": 8,
+    "lstm_layers": 2,
+    "lstm_dropout": 0.4,
+    "adam_beta1": 0.9,
+    "adam_beta2": 0.999,
+    "adam_lr": 0.01,
+    "weight_decay": 0,
+    "lr_patience": 3,
+    "batch_size": 64,
+    "max_sequence_length": 27,
+    "training_set": "/prj/peptide-encoder/data/raw/sample-peptides.training.csv",
+    "validation_set": "/prj/peptide-encoder/data/raw/sample-peptides.validation.csv",
+    "test_set": "/prj/peptide-encoder/data/raw/sample-peptides.test.csv",
+    "aa_encoding_map": "/prj/peptide-encoder/data/intermediate/oh-aa-encoding-map.jpkl",
+    "vocabulary_size": 21
+}

@@ -65,7 +65,7 @@ After building the image, a container can be run using a command similar to the 
     --logging-level INFO
 ```
 
-If built as expected, the container should take advantage of one GPU available on the node.
+If built as expected, the container should take advantage of any GPUs available on the node.
 
 ### Documentation
 

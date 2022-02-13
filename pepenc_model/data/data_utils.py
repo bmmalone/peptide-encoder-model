@@ -6,6 +6,8 @@ import os
 import pathlib
 import yaml
 
+from lifesci.peptide_dataset import PeptideDataset
+
 from typing import Mapping
 
 def _get_base_data_dir() -> pathlib.Path:
@@ -42,6 +44,17 @@ def load_encoding_map() -> Mapping:
     p = get_encoding_map_path()
     encoding_map = joblib.load(p)
     return encoding_map
+
+def load_peptides_as_csv_string() -> str:
+    """ Load the peptides in the test data file and return as a csv string """
+    sequence_column = "sequence"
+
+    f = get_sample_test_peptides_path()
+    df_peptides = PeptideDataset.load(f, sequence_column, filters=["standard_aa_only"])
+    aa_sequences = df_peptides[sequence_column].values
+    csv_peptide_list = ",".join(aa_sequences)
+    return csv_peptide_list
+
 
 def load_sample_config(update_paths:bool=True) -> Mapping:
     """ Load the config file and, optionally, update the path values"""

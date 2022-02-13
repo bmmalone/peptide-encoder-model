@@ -49,7 +49,36 @@ def test_dataset_loading_from_file(config:Mapping) -> None:
 
     dataset_path = config.get('test_set')
     encoding_map = data_utils.load_encoding_map()
-    dataset = PeptideEncoderEmbeddingDataset(dataset_path, encoding_map)
+    dataset = PeptideEncoderEmbeddingDataset.create_from_file(
+        dataset_path=dataset_path,
+        aa_encoding_map=encoding_map,
+        max_len=config.get('max_sequence_length')
+    )
+
+    expected_length = 1981 # known from file
+    assert len(dataset) == expected_length
+
+    batch_size = config.get('batch_size')
+    data_loader = torch.utils.data.DataLoader(
+        dataset, batch_size=batch_size, shuffle=False
+    )
+
+    it = iter(data_loader)
+    data = next(it)
+
+    assert len(data.peptide_sequence) == batch_size
+    assert data.encoded_sequence.shape[0] == batch_size
+
+def test_dataset_creating_from_string(config:Mapping) -> None:
+    """ Test creating a dataset from a CSV string of peptide sequences """
+    
+    csv_peptide_list = data_utils.load_peptides_as_csv_string()
+    encoding_map = data_utils.load_encoding_map()
+    dataset = PeptideEncoderEmbeddingDataset.create_from_csv_peptide_list(
+        csv_peptide_list=csv_peptide_list,
+        aa_encoding_map=encoding_map,
+        max_len=config.get('max_sequence_length')
+    )
 
     expected_length = 1981 # known from file
     assert len(dataset) == expected_length
@@ -100,6 +129,7 @@ def run_all():
 
     config = get_config()
     test_dataset_loading_from_file(config)
+    test_dataset_creating_from_string(config)
 
 if __name__ == '__main__':
     run_all()

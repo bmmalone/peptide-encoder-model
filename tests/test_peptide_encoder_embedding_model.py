@@ -69,6 +69,27 @@ def test_model_transform_file_dataset(config:Mapping) -> None:
     df_embedded['embedded_sequence'] = transformed_data.embedded_sequences.tolist()
 
     assert len(df_embedded) == len(dataset)
+
+def test_model_transform_string_dataset(config:Mapping) -> None:
+    """ Test transforming a dataset from a string with a loaded model """
+    model = PeptideEncoderLSTMEmbeddingModel(config)
+
+    peptides = data_utils.load_peptides_as_csv_string()
+    dataset = PeptideEncoderEmbeddingDataset.create_from_csv_peptide_list(
+        csv_peptide_list=peptides,
+        aa_encoding_map=model.aa_encoding_map,
+        max_len=config.get('max_sequence_length')
+    )
+
+    transformed_data = model.transform(dataset, progress_bar=True)
+
+    ret = {
+        'peptide_sequences': transformed_data.peptide_sequences.tolist(),
+        'embedded_sequences': transformed_data.embedded_sequences.tolist()
+    }
+
+    assert isinstance(ret['peptide_sequences'], list)
+    assert isinstance(ret['embedded_sequences'], list)
     
 
 def test_version(version:str) -> None:
@@ -106,6 +127,7 @@ def run_all():
     config = get_config()
     test_create_model(config)
     test_model_transform_file_dataset(config)
+    test_model_transform_string_dataset(config)
 
 if __name__ == '__main__':
     run_all()

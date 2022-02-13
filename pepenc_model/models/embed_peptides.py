@@ -39,7 +39,11 @@ def embed_dataset(config:Mapping, dataset_path:str) -> pd.DataFrame:
 
     msg = "Loading the dataset"
     logger.info(msg)
-    dataset = PeptideEncoderEmbeddingDataset(dataset_path, model.aa_encoding_map)
+    dataset = PeptideEncoderEmbeddingDataset.create_from_file(
+        dataset_path=dataset_path,
+        aa_encoding_map=model.aa_encoding_map,
+        max_len=config.get('max_sequence_length')
+    )
 
     msg = "Embedding the peptides"
     logger.info(msg)
